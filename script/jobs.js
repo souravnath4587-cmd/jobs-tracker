@@ -109,43 +109,70 @@ document.getElementById('jobs_section').innerHTML = jobs.map(job => `
 `).join('');
 
 function interview(jobId) {
+
+  // for interview selection -------------->
   const badge =  document.getElementById('badge_' + jobId);  
+  const interviewCount = document.getElementById('interview_count');
+  const rejectedCount = document.getElementById('rejected_count');
   jobs.forEach(job => {
     if (job.id === jobId) {
       job.interview = true;
+      job.rejected = false;
+      // Update interview count ---------------->
+      const totalInterviews = jobs.filter(job => job.interview).length;
+      interviewCount.innerText = totalInterviews;
+      // Update rejected count ---------------->
+      const totalRejected = jobs.filter(job => job.rejected).length;
+      rejectedCount.innerText = totalRejected;
+
     }  
   });
   for (let job of jobs) {
-    if (job.id === jobId && job.interview) {
-      console.log(jobId, job.id , job.interview);
-      badge.innerText = "Interview";
-      badge.classList.remove('badge-primary');
-      badge.classList.remove('badge-error');
-      badge.classList.add('badge-info');
-    }
+      if (job.id === jobId && job.interview) {
+        // badge color change ---------------->
+        badge.innerText = "Interview";
+        badge.classList.remove('badge-primary');
+        badge.classList.remove('badge-error');
+        badge.classList.add('badge-info');
+      }      
+      
   } 
+ 
+
 };
 function rejected(jobId) {
+  // for rejection --------------------------->
   const badge =  document.getElementById('badge_' + jobId);  
+  const rejectedCount = document.getElementById('rejected_count');
+  const interviewCount = document.getElementById('interview_count');
   jobs.forEach(job => {
     if (job.id === jobId) {
       job.rejected = true;
+      job.interview = false;
+      // Update rejected count ---------------->
+    const totalRejected = jobs.filter(job => job.rejected).length;
+    rejectedCount.innerText = totalRejected;
+      // Update interview count ---------------->
+    const totalInterviews = jobs.filter(job => job.interview).length;
+    interviewCount.innerText = totalInterviews;
     }  
   });
   for (let job of jobs) {
     if (job.id === jobId && job.rejected) {
-      console.log(jobId, job.id , job.rejected);
+      // badge color change ---------------->
       badge.innerText = "Rejected";
        badge.classList.remove('badge-primary');
        badge.classList.remove('badge-info');
       badge.classList.add('badge-error');
     }
+     
   } 
+  
 };
 
 
 
 
-
+// for total jobs count ---------------->
 document.getElementById('jobs_count').textContent = jobs.length + " Jobs";
 document.getElementById('total_count').textContent = jobs.length;
