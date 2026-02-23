@@ -43,28 +43,15 @@
     <main class="container mx-auto md:max-w-[80%] p-5 bg-base-200">
         <div class="job_list_container flex justify-between items-center mb-5">
             <h2 class="capitalize text-2xl font-bold">Available Jobs</h2>
-            <p id="jobs_count" class="text-[20px]">0</p>
+            <p id="jobs_count" class="text-[20px]"></p>
         </div>
         <div class="job_button_list flex flex-row justify-start items-center gap-5 mb-5">
-            <button  onclick="selected('jobs_section')" class="btn  btn-sm btn-primary text-xl p-4">All</button>
-            <button  onclick="selected('interview_section')" class="btn btn-sm text-xl p-4">Interview</button>
-            <button  onclick="selected('rejected_section')" class="btn  btn-sm text-xl p-4">Rejected</button>
+            <button id="all_btn" onclick="selected('all')" class="btn  btn-sm btn-primary text-xl p-4">All</button>
+            <button id="interview_btn" onclick="selected('interview')" class="btn btn-sm text-xl p-4">Interview</button>
+            <button id="reject_btn" onclick="selected('rejected')" class="btn  btn-sm text-xl p-4">Rejected</button>
 
         </div>
-        <section id="interview_section" class="hidden">
-            <div class="job_card flex flex-col justify-center items-center h-screen space-y-4 bg-white">
-                <img src="./assests/jobs.png" alt="">
-                <h1 class="text-2xl font-extrabold capitalize">No Jobs Available</h1>
-                <p >Check back soon for new job opportunities</p>
-            </div>
-        </section>
-        <section id="rejected_section" class="hidden bg-blue">
-           <div class="job_card flex flex-col justify-center items-center h-screen space-y-4 bg-white">
-                <img src="./assests/jobs.png" alt="">
-                <h1 class="text-2xl font-extrabold capitalize">No Jobs Available</h1>
-                <p >Check back soon for new job opportunities</p>
-            </div>
-        </section>
+
 
         <section id="jobs_section" class="grid grid-cols-1 gap-5" >
             <!-- <div class="job_card p-5 bg-white rounded-2xl flex flex-col justify-start items-start gap-3">
@@ -90,15 +77,8 @@
     
 
 
-    <script>
-        const stats = {
-            total : 0,
-            interview : 0,
-            rejected : 0
-        }
-    </script>
+   
     <script src="./script/jobs.js"></script>
-    <script src="./script/interviewCount.js"></script>
-    <script src="./script/selectBtn.js"></script>
+    <!-- <script src="./script/selectBtn.js"></script> -->
 </body>
 </html>

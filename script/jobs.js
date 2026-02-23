@@ -4,7 +4,7 @@ const jobs = [
     company: "Mobile First Corp",
     title: "Software Engineer",
     salary: "$130,000 - $175,000",
-    applied: false,
+    // applied: false,
     details: "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
     interview:false,
     rejected:false,
@@ -15,7 +15,7 @@ const jobs = [
     company: "TechNova Solutions",
     title: "Frontend Developer",
     salary: "$90,000 - $120,000",
-    applied: true,
+    // applied: true,
     details: "Develop responsive web applications using React and Tailwind CSS.",
     interview: false,
     rejected: false,
@@ -25,7 +25,7 @@ const jobs = [
     company: "CloudSync Ltd",
     title: "Backend Developer",
     salary: "$110,000 - $140,000",
-    applied: false,
+    // applied: false,
     details: "Build scalable APIs using Node.js and MongoDB.",
     interview: false,
     rejected: false,
@@ -35,7 +35,7 @@ const jobs = [
     company: "AI Vision Inc",
     title: "Machine Learning Engineer",
     salary: "$140,000 - $180,000",
-    applied: false,
+    // applied: false,
     details: "Work on AI models and data pipelines for real-world applications.",
     interview: false,
     rejected: false,
@@ -45,7 +45,7 @@ const jobs = [
     company: "NextGen Apps",
     title: "React Native Developer",
     salary: "$100,000 - $135,000",
-    applied: true,
+    // applied: true,
     details: "Create high-performance mobile apps for Android and iOS.",
     interview: false,
     rejected: false,
@@ -55,7 +55,7 @@ const jobs = [
     company: "SecureNet",
     title: "Cyber Security Analyst",
     salary: "$95,000 - $125,000",
-    applied: false,
+    // applied: false,
     details: "Monitor and secure enterprise systems from cyber threats.",
     interview: false,
     rejected: false,
@@ -65,7 +65,7 @@ const jobs = [
     company: "DataFlow Systems",
     title: "Full Stack Developer",
     salary: "$120,000 - $150,000",
-    applied: true,
+    // applied: true,
     details: "Work on both frontend and backend systems using MERN stack.",
     interview:  false,
     rejected: false,
@@ -75,7 +75,7 @@ const jobs = [
     company: "BrightSoft",
     title: "UI/UX Designer",
     salary: "$85,000 - $110,000",
-    applied: false,
+    // applied: false,
     details: "Design intuitive and user-friendly digital products.",
     interview: false,
     rejected: false,
@@ -85,94 +85,130 @@ const jobs = [
     company: "CodeCraft Studio",
     title: "Junior Web Developer",
     salary: "$60,000 - $80,000",
-    applied: false,
+    // applied: false,
     details: "Assist in developing and maintaining company websites.",
     interview: false,
     rejected: false,
   }
 ];
 
+let currentBtn = 'all'
 
-document.getElementById('jobs_section').innerHTML = jobs.map(job => `
-  <div class="job_card p-5 bg-white rounded-2xl flex flex-col justify-start items-start gap-3">
-    <h2 class="text-xl font-bold">${job.company}</h2>
-    <p class="text-sm text-gray-500">${job.title}</p>
-    <p class="text-sm text-gray-500">Remote • Full-time • ${job.salary}</p>
-    <div id='badge_${job.id}' class="badge badge-soft badge-primary p-4 uppercase"><span>Not Applied</span>
-    </div>
-    <p class="text-sm text-gray-500">${job.details}</p>
-    <div class="jobs_apply_btn flex flex-row gap-5">
-      <button id='interview_btn' onclick="interview(${job.id})" class="btn btn-outline btn-info">Interview</button>
-      <button id='rejected_btn' onclick="rejected(${job.id})" class="btn btn-outline btn-error">Rejected</button>
-    </div>
-  </div>
-`).join('');
+function renderJobs(){
+  const jobsSection = document.getElementById('jobs_section');
+  jobsSection.innerHTML = '';
+  let filter = jobs;
 
-function interview(jobId) {
+  if(currentBtn === "interview"){
+    filter = jobs.filter(j => j.interview);
+  }
 
-  // for interview selection -------------->
-  const badge =  document.getElementById('badge_' + jobId);  
-  const interviewCount = document.getElementById('interview_count');
-  const rejectedCount = document.getElementById('rejected_count');
-  jobs.forEach(job => {
-    if (job.id === jobId) {
-      job.interview = true;
-      job.rejected = false;
-      // Update interview count ---------------->
-      const totalInterviews = jobs.filter(job => job.interview).length;
-      interviewCount.innerText = totalInterviews;
-      // Update rejected count ---------------->
-      const totalRejected = jobs.filter(job => job.rejected).length;
-      rejectedCount.innerText = totalRejected;
+  if(currentBtn === "rejected"){
+    filter = jobs.filter(j => j.rejected);
+  }
 
-    }  
-  });
-  for (let job of jobs) {
-      if (job.id === jobId && job.interview) {
-        // badge color change ---------------->
-        badge.innerText = "Interview";
-        badge.classList.remove('badge-primary');
-        badge.classList.remove('badge-error');
-        badge.classList.add('badge-info');
-      }      
-      
-  } 
+
+  updateCounts()
+  updateButton()
  
 
-};
-function rejected(jobId) {
-  // for rejection --------------------------->
-  const badge =  document.getElementById('badge_' + jobId);  
-  const rejectedCount = document.getElementById('rejected_count');
-  const interviewCount = document.getElementById('interview_count');
-  jobs.forEach(job => {
-    if (job.id === jobId) {
-      job.rejected = true;
-      job.interview = false;
-      // Update rejected count ---------------->
-    const totalRejected = jobs.filter(job => job.rejected).length;
-    rejectedCount.innerText = totalRejected;
-      // Update interview count ---------------->
-    const totalInterviews = jobs.filter(job => job.interview).length;
-    interviewCount.innerText = totalInterviews;
-    }  
-  });
-  for (let job of jobs) {
-    if (job.id === jobId && job.rejected) {
-      // badge color change ---------------->
-      badge.innerText = "Rejected";
-       badge.classList.remove('badge-primary');
-       badge.classList.remove('badge-info');
-      badge.classList.add('badge-error');
-    }
-     
-  } 
-  
-};
+  if(filter.length === 0){
+    jobsSection.innerHTML += `
+            <div class="job_card flex flex-col justify-center items-center h-screen space-y-4 bg-white">
+                <img src="./assests/jobs.png" alt="">
+                <h1 class="text-2xl font-extrabold capitalize">No Jobs Available</h1>
+                <p >Check back soon for new job opportunities</p>
+            </div>
+      `;
+     return; 
+  }
+
+  filter.forEach( job => 
+    jobsSection.innerHTML += `
+      <div class="job_card p-5 bg-white rounded-2xl flex flex-col justify-start items-start gap-3">
+        <h2 class="text-xl font-bold">${job.company}</h2>
+        <p class="text-sm text-gray-500">${job.title}</p>
+        <p class="text-sm text-gray-500">Remote • Full-time • ${job.salary}</p>
+        <div id='badge_${job.id}' class="">
+          ${job.interview ? '<span class="badge badge-success p-5">Interview</span>' : ''}
+          ${job.rejected ? '<span class="badge badge-error p-5">Rejected</span>' : ''}
+        </div>
+        <p class="text-sm text-gray-500">${job.details}</p>
+        <div class="jobs_apply_btn flex flex-row gap-5">
+          <button id='interview_btn' onclick="interview(${job.id})" class="btn btn-outline btn-info">Interview</button>
+          <button id='rejected_btn' onclick="rejected(${job.id})" class="btn btn-outline btn-error">Rejected</button>
+        </div>
+      </div>
+    `
+  )
+
+}
 
 
+function interview(id){
+  const job = jobs.find(job =>job.id === id);
+  if(!job.interview){
+    job.interview = true;
+    job.rejected = false;
+  }else{
+    job.interview = false;
+  }
+
+  renderJobs();
+}
+
+function rejected(id){
+  const job = jobs.find(job =>job.id === id);
+  if(!job.rejected){
+    job.rejected = true;
+    job.interview = false;
+  }else{
+    job.interview = false;
+  }
+  renderJobs();
+}
 
 
-// for total jobs count ---------------->
-document.getElementById('jobs_count').textContent = jobs.length + " Jobs";
-document.getElementById('total_count').textContent = jobs.length;
+function selected(btn){
+  currentBtn = btn;
+  renderJobs();
+}
+
+function updateCounts(){
+  const total = jobs.length;
+  const interviewCount = jobs.filter(j => j.interview).length;
+  const rejectedCount = jobs.filter(j => j.rejected).length;
+
+  document.getElementById("total_count").innerText = total;
+  document.getElementById("jobs_count").innerText = `${total} Jobs`;
+  document.getElementById("interview_count").innerText = interviewCount;
+  document.getElementById("rejected_count").innerText = rejectedCount;
+}
+
+function updateButton(){
+  document.querySelectorAll(".btn").forEach(t => t.classList.remove("btn-primary"));
+  const total = jobs.length;
+  const interviewCount = jobs.filter(j => j.interview).length;
+  const rejectedCount = jobs.filter(j => j.rejected).length;
+
+  if(currentBtn === "all"){
+   document.getElementById('all_btn').classList.add('btn-primary');
+   console.log('all');
+   
+  }
+  if(currentBtn === "interview"){
+    document.getElementById('interview_btn').classList.add('btn-primary');
+    document.getElementById("jobs_count").innerText = `${interviewCount} of ${total} Jobs`;
+    console.log('interview');
+    
+  }
+  if(currentBtn === 'rejected'){
+    document.getElementById('reject_btn').classList.add('btn-primary');
+    document.getElementById("jobs_count").innerText = `${rejectedCount} of ${total} Jobs`;
+   console.log('rejected');
+   
+  }
+}
+
+renderJobs();
+
