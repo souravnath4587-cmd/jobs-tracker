@@ -14,7 +14,8 @@
 4. Javascript(ES6)
 
 ## How it works
-###1. Each job is stored as an object inside an array.
+
+1. Each job is stored as an object inside an array.
     {
       id: 1,
       company: "Company Name",
@@ -24,26 +25,31 @@
       interview: false,
       rejected: false
     }
-###2. Interview Button
+
+3. Interview Button
    1. Bydefault interview is false
    2. When button is clicked interview is true
    3. Moves interview tab updates interview counted
-###3. Rejected Button
+
+4. Rejected Button
    1. Bydefault rejected is false
    2. When button is clicked rejected is true
    3. Moves rejected tab updates rejected counted
-###4. Filter system
+
+5. Filter system
    Buttons:
      1. all
      2. interview
      3. rejected
    filtering is handle using by javascript filter() method.
-###5. Dashboard Counts
+
+6. Dashboard Counts
    The dashboard automatically updates:
    1. Total jobs counted`
    2. Interview Jobs counted
    3. Rejected Jobs counted
-###6. Delete button
+
+7. Delete button
    When Delete button click delete this object in the jobs element.
    We are using splice() method for delete item of jobs.
    
