@@ -126,9 +126,14 @@ function renderJobs(){
   filter.forEach( job => 
     jobsSection.innerHTML += `
       <div class="job_card p-5 bg-white rounded-2xl flex flex-col justify-start items-start gap-3">
+       <div class='flex flex-row justify-between items-start w-full'>
+       <div>
         <h2 class="text-xl font-bold">${job.company}</h2>
         <p class="text-sm text-gray-500">${job.title}</p>
         <p class="text-sm text-gray-500">Remote • Full-time • ${job.salary}</p>
+        </div>
+        <button onclick='{handleDelete(${job.id})}'><i class="fa-solid fa-trash-can"></i></button>
+        </div>
         <div id='badge_${job.id}' class="">
           ${job.interview ? '<span class="badge badge-success p-5">Interview</span>' : ''}
           ${job.rejected ? '<span class="badge badge-error p-5">Rejected</span>' : ''}
@@ -139,9 +144,20 @@ function renderJobs(){
           <button id='rejected_btn' onclick="rejected(${job.id})" class="btn btn-outline btn-error">Rejected</button>
         </div>
       </div>
-    `
-  )
+      `
+    );
 
+}
+
+function handleDelete(id) {
+
+  jobs.filter((item,i) =>{
+    if(id == item.id){
+      jobs.splice(i, 1);
+      renderJobs();
+    }
+  } );
+  
 }
 
 
