@@ -50,6 +50,7 @@
    3. Rejected Jobs counted
 
 7. Delete button
+   
    When Delete button click delete this object in the jobs element.
    We are using splice() method for delete item of jobs.
    
