@@ -132,7 +132,7 @@ function renderJobs(){
         <p class="text-sm text-gray-500">${job.title}</p>
         <p class="text-sm text-gray-500">Remote • Full-time • ${job.salary}</p>
         </div>
-        <button onclick='{handleDelete(${job.id})}'><i class="fa-solid fa-trash-can"></i></button>
+        <button class='p-4' onclick='{handleDelete(${job.id})}'><i class="fa-solid fa-trash-can"></i></button>
         </div>
         <div id='badge_${job.id}' class="">
           ${job.interview ? '<span class="badge badge-success p-5">Interview</span>' : ''}
@@ -148,6 +148,7 @@ function renderJobs(){
     );
 
 }
+
 
 function handleDelete(id) {
 
@@ -194,11 +195,15 @@ function updateCounts(){
   const total = jobs.length;
   const interviewCount = jobs.filter(j => j.interview).length;
   const rejectedCount = jobs.filter(j => j.rejected).length;
+  const interviewId = document.getElementById('interview_count')
+  const rejectedId = document.getElementById('rejected_count')
 
   document.getElementById("total_count").innerText = total;
   document.getElementById("jobs_count").innerText = `${total} Jobs`;
-  document.getElementById("interview_count").innerText = interviewCount;
-  document.getElementById("rejected_count").innerText = rejectedCount;
+  interviewId.innerText = interviewCount;
+  interviewId.classList.add('text-info')
+  rejectedId.innerText = rejectedCount;
+  rejectedId.classList.add('text-error')
 }
 
 function updateButton(){
