@@ -1,11 +1,11 @@
 # A simple Job Application dashboard build with HTML, CSS, TAILWIND(DaisyUI) and JAVASCRIPT.
 
 ## Features 
--> all jobs listing.
--> mark a job as interview
--> mark a job as rejected
--> toggle between interview and rejected button
--> making three tab --> all --> interview --> rejected
+1. all jobs listing.
+2. mark a job as interview
+3. mark a job as rejected
+4. toggle between interview and rejected button
+5. making three tab --> all --> interview --> rejected
 
 ## Technologies Used
 1. HTML5
@@ -14,7 +14,7 @@
 4. Javascript(ES6)
 
 ## How it works
-1. Each job is stored as an object inside an array.
+###1. Each job is stored as an object inside an array.
     {
       id: 1,
       company: "Company Name",
@@ -24,26 +24,26 @@
       interview: false,
       rejected: false
     }
-2. Interview Button
-   -> Bydefault interview is false
-   -> When button is clicked interview is true
-   -> Moves interview tab updates interview counted
-3. Rejected Button
-   -> Bydefault rejected is false
-   -> When button is clicked rejected is true
-   -> Moves rejected tab updates rejected counted
-4. Filter system
+###2. Interview Button
+   1. Bydefault interview is false
+   2. When button is clicked interview is true
+   3. Moves interview tab updates interview counted
+###3. Rejected Button
+   1. Bydefault rejected is false
+   2. When button is clicked rejected is true
+   3. Moves rejected tab updates rejected counted
+###4. Filter system
    Buttons:
      1. all
      2. interview
      3. rejected
    filtering is handle using by javascript filter() method.
-5. Dashboard Counts
+###5. Dashboard Counts
    The dashboard automatically updates:
    1. Total jobs counted`
    2. Interview Jobs counted
    3. Rejected Jobs counted
-6. Delete button
+###6. Delete button
    When Delete button click delete this object in the jobs element.
    We are using splice() method for delete item of jobs.
    
